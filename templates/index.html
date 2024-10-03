@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genshin Impact Gacha Simulation</title>
+</head>
+
+<body>
+    <h1>Genshin Impact Gacha Simulation</h1>
+    <form action="/simulate" method="post">
+        <label for="gacha_type">가챠 유형 선택 (1: 캐릭터, 2: 무기):</label>
+        <input type="text" id="gacha_type" name="gacha_type" required><br><br>
+
+        <label for="pulls">가챠 횟수 입력:</label>
+        <input type="text" id="pulls" name="pulls" required><br><br>
+
+        <input type="submit" value="시뮬레이션 시작">
+    </form>
+</body>
+
+</html>
