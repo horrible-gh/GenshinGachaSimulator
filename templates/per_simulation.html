@@ -1,0 +1,45 @@
+            <!-- Per Simulation 탭 -->
+            <div class="tab-pane fade" id="per_simulation" role="tabpanel" aria-labelledby="per_simulation-tab">
+                <div class="card p-4 mt-3">
+                    <form id="per_simulation-form">
+                        <!-- 가챠수 또는 원석 선택 -->
+                        <div class="mb-3">
+                            <label class="form-label">입력 방식 선택</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="input_method" id="input_pulls" value="pulls" checked>
+                                    <label class="form-check-label" for="input_pulls">가챠 횟수</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="input_method" id="input_gemstones" value="gemstones">
+                                    <label class="form-check-label" for="input_gemstones">원석</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 가챠 횟수 입력 필드 -->
+                        <div class="mb-3" id="pulls_input_field">
+                            <label for="pulls_per_simulation" class="form-label">가챠 횟수 입력</label>
+                            <input type="number" id="pulls_per_simulation" name="pulls" class="form-control" min="1" required>
+                        </div>
+                        <!-- 원석 입력 필드 -->
+                        <div class="mb-3" id="gemstones_input_field" style="display: none;">
+                            <label for="gemstones_per_simulation" class="form-label">원석 입력</label>
+                            <input type="number" id="gemstones_per_simulation" name="gemstones" class="form-control" min="160" required>
+                            <small class="form-text text-muted">1 가챠는 160 원석입니다.</small>
+                        </div>
+                        <!-- 목표 캐릭터 수 -->
+                        <div class="mb-3">
+                            <label for="target_character" class="form-label">목표 캐릭터 수(80연차 기준)</label>
+                            <input type="number" id="target_character" name="target_character" class="form-control" min="0" value="0" required>
+                        </div>
+                        <!-- 목표 무기 수 -->
+                        <div class="mb-3">
+                            <label for="target_weapon" class="form-label">목표 무기 수(70연차 기준)</label>
+                            <input type="number" id="target_weapon" name="target_weapon" class="form-control" min="0" value="0" required>
+                        </div>
+                        <button type="button" id="start-per_simulation" class="btn btn-primary w-100">시뮬레이션 시작</button>
+                    </form>
+                </div>
+                <h2>시뮬레이션 결과</h2>
+                <pre id="result_per_simulation" class="border"></pre>
+            </div>

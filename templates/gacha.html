@@ -1,0 +1,44 @@
+            <!-- Gacha Simulation 탭 -->
+            <div class="tab-pane fade show active" id="gacha" role="tabpanel" aria-labelledby="gacha-tab">
+                <div class="card p-4 mt-3">
+                    <form id="gacha-form">
+                        <div class="mb-3">
+                            <label for="gacha_type" class="form-label">가챠 유형 선택</label>
+                            <select id="gacha_type" name="gacha_type" class="form-control" required>
+                                <option value="1">캐릭터(80연차 기준)</option>
+                                <option value="2">무기(70연차 기준)</option>
+                            </select>
+                        </div>
+                        <!-- 입력 방식 선택 -->
+                        <div class="mb-3">
+                            <label class="form-label">입력 방식 선택</label>
+                            <div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="input_method_gacha" id="input_pulls_gacha" value="pulls" checked>
+                                    <label class="form-check-label" for="input_pulls_gacha">가챠 횟수</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="input_method_gacha" id="input_gemstones_gacha" value="gemstones">
+                                    <label class="form-check-label" for="input_gemstones_gacha">원석</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 가챠 횟수 입력 필드 -->
+                        <div class="mb-3" id="pulls_input_field_gacha">
+                            <label for="pulls_gacha" class="form-label">가챠 횟수 입력</label>
+                            <input type="number" id="pulls_gacha" name="pulls" class="form-control" min="1" required>
+                        </div>
+                        <!-- 원석 입력 필드 -->
+                        <div class="mb-3" id="gemstones_input_field_gacha" style="display: none;">
+                            <label for="gemstones_gacha" class="form-label">원석 입력</label>
+                            <input type="number" id="gemstones_gacha" name="gemstones" class="form-control" min="160" required>
+                            <small class="form-text text-muted">1 가챠는 160 원석입니다.</small>
+                        </div>
+                        <button type="button" id="start-gacha" class="btn btn-primary w-100">시뮬레이션 시작</button>
+                    </form>
+                </div>
+                <h2>시뮬레이션 통계</h2>
+                <pre id="stats_gacha" class="border"></pre>
+                <h2>상세 내역</h2>
+                <pre id="result_gacha" class="border"></pre>
+            </div>
