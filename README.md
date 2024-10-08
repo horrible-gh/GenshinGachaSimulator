@@ -1,0 +1,1 @@
+GenshinGachaSimulator Application
