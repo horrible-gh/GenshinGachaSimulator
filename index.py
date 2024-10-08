@@ -20,6 +20,9 @@ def create_app():
     return app
 
 
+# Flask 애플리케이션을 전역 변수로 생성
+app = create_app()
+
 if __name__ == "__main__":
-    app = create_app()
+    # __main__으로 실행될 때만 app으로 실행
     app.run(debug=True)
