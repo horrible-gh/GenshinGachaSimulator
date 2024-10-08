@@ -28,7 +28,7 @@
         .form-control, .btn {
             margin-top: 10px;
         }
-        #result, #stats, #result_per_simulation {
+        #result, #stats, #result_per_simulation, #result_gacha, #warnings {
             background: #f8f9fa;
             padding: 15px;
             border-radius: 8px;
@@ -50,9 +50,11 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="per_simulation-tab" data-bs-toggle="tab" data-bs-target="#per_simulation" type="button" role="tab" aria-controls="per_simulation" aria-selected="false">Per Simulation</button>
             </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="warnings-tab" data-bs-toggle="tab" data-bs-target="#warnings" type="button" role="tab" aria-controls="warnings" aria-selected="false">경고문</button>
+            </li>
         </ul>
         <div class="tab-content" id="simulationTabsContent">
-
             <!-- Gacha Simulation 탭 -->
             <div class="tab-pane fade show active" id="gacha" role="tabpanel" aria-labelledby="gacha-tab">
                 <div class="card p-4 mt-3">
@@ -97,7 +99,6 @@
                 <h2>상세 내역</h2>
                 <pre id="result_gacha" class="border"></pre>
             </div>
-
             <!-- Per Simulation 탭 -->
             <div class="tab-pane fade" id="per_simulation" role="tabpanel" aria-labelledby="per_simulation-tab">
                 <div class="card p-4 mt-3">
@@ -130,12 +131,12 @@
                         <!-- 목표 캐릭터 수 -->
                         <div class="mb-3">
                             <label for="target_character" class="form-label">목표 캐릭터 수</label>
-                            <input type="number" id="target_character" name="target_character" class="form-control" min="1" required>
+                            <input type="number" id="target_character" name="target_character" class="form-control" min="0" value="0" required>
                         </div>
                         <!-- 목표 무기 수 -->
                         <div class="mb-3">
                             <label for="target_weapon" class="form-label">목표 무기 수</label>
-                            <input type="number" id="target_weapon" name="target_weapon" class="form-control" min="0" required>
+                            <input type="number" id="target_weapon" name="target_weapon" class="form-control" min="0" value="0" required>
                         </div>
                         <button type="button" id="start-per_simulation" class="btn btn-primary w-100">시뮬레이션 시작</button>
                     </form>
@@ -143,26 +144,46 @@
                 <h2>시뮬레이션 결과</h2>
                 <pre id="result_per_simulation" class="border"></pre>
             </div>
+            <!-- Warnings 탭 -->
+            <div class="tab-pane fade" id="warnings" role="tabpanel" aria-labelledby="warnings-tab">
+                <div class="card p-4 mt-3">
+                    <h2>주의사항 및 이용 약관</h2>
+                    <pre id="warnings_content" class="border">
+본 프로그램을 이용함으로써, 사용자는 아래의 경고사항에 동의한 것으로 간주됩니다.
+
+1. 본 사이트는 공식 원신(Genshin Impact) 사이트와 어떠한 관련도 없습니다.
+2. 본 사이트는 어떠한 개인정보도 저장하지 않습니다.
+3. 본 프로그램의 사용으로 인해 발생하는 모든 문제에 대하여 책임을 지지 않습니다.
+4. 본 프로그램의 로직은 사전 예고 없이 변경될 수 있습니다.
+5. 본 프로그램은 제공되는 정보의 정확성을 보장하지 않으며, 사용자는 이를 참고용으로만 활용해야 합니다.
+6. 본 사이트에 사용된 모든 콘텐츠는 저작권 및 지적 재산권의 보호를 받습니다.
+7. 본 사이트는 사전 통보 없이 서비스를 변경하거나 중단할 권리를 보유합니다.
+8. 본 프로그램의 사용은 전적으로 사용자의 책임 하에 이루어집니다.
+9. 본 사이트는 사용자의 행위로 인해 발생하는 모든 손해에 대하여 법적 책임을 지지 않습니다.
+                    </pre>
+                </div>
+            </div>
         </div>
     </div>
     
     <!-- Bootstrap JS (탭 기능을 위해 필요) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <script>
+        var context = "/genshin_gacha_simulator"
         $(document).ready(function(){
             // 입력 방식 변경 시 필드 토글 - Per Simulation
             $("input[name='input_method']").change(function(){
                 if($(this).val() === 'pulls'){
                     $("#pulls_input_field").show();
                     $("#gemstones_input_field").hide();
-                    $("#gemstones_per_simulation").val('');
+                    $("#gemstones_per_simulation").val('0'); // 변경: 빈 문자열에서 '0'으로 수정
                     $("#gemstones_per_simulation").removeAttr('required');
                     $("#pulls_per_simulation").attr('required', 'required');
                 } else {
                     $("#pulls_input_field").hide();
                     $("#gemstones_input_field").show();
-                    $("#pulls_per_simulation").val('');
+                    $("#pulls_per_simulation").val('0'); // 변경: 빈 문자열에서 '0'으로 수정
                     $("#pulls_per_simulation").removeAttr('required');
                     $("#gemstones_per_simulation").attr('required', 'required');
                 }
@@ -173,13 +194,13 @@
                 if($(this).val() === 'pulls'){
                     $("#pulls_input_field_gacha").show();
                     $("#gemstones_input_field_gacha").hide();
-                    $("#gemstones_gacha").val('');
+                    $("#gemstones_gacha").val('0'); // 변경: 빈 문자열에서 '0'으로 수정
                     $("#gemstones_gacha").removeAttr('required');
                     $("#pulls_gacha").attr('required', 'required');
                 } else {
                     $("#pulls_input_field_gacha").hide();
                     $("#gemstones_input_field_gacha").show();
-                    $("#pulls_gacha").val('');
+                    $("#pulls_gacha").val('0'); // 변경: 빈 문자열에서 '0'으로 수정
                     $("#pulls_gacha").removeAttr('required');
                     $("#gemstones_gacha").attr('required', 'required');
                 }
@@ -197,10 +218,11 @@
                 } else {
                     var gemstones = $("#gemstones_gacha").val();
                     pulls = Math.floor(gemstones / 160);
-                    if(pulls < 1){
-                        alert("원석이 부족하여 최소 1 가챠를 할 수 없습니다.");
-                        return;
-                    }
+                }
+
+                if(pulls < 1){
+                    alert("원석이 부족하여 최소 1 가챠를 할 수 없습니다.");
+                    return;
                 }
 
                 var pulls_int = parseInt(pulls);
@@ -208,16 +230,8 @@
                 var target_weapon = parseInt($("#target_weapon").val());
 
                 // 입력 값 유효성 검사
-                if(pulls_int <= 0){
+                if(isNaN(pulls_int) || pulls_int <= 0){
                     alert("가챠 횟수는 1 이상이어야 합니다.");
-                    return;
-                }
-                if(target_character <= 0){
-                    alert("목표 캐릭터 수는 1 이상이어야 합니다.");
-                    return;
-                }
-                if(target_weapon < 0){
-                    alert("목표 무기 수는 0 이상이어야 합니다.");
                     return;
                 }
 
@@ -225,7 +239,7 @@
                 $("#start-gacha").prop("disabled", true).removeClass("btn-primary").addClass("btn-success").text("진행 중...");
 
                 $.ajax({
-                    url: "/gacha/simulate",
+                    url: context + "/gacha/simulate",
                     type: "POST",
                     data: {gacha_type: gacha_type, pulls: pulls_int},
                     success: function(response){
@@ -261,10 +275,10 @@
                     var gemstones = $("#gemstones_per_simulation").val();
                     // 원석을 가챠 수로 변환 (160 원석 = 1 가챠, 소수점 버림)
                     pulls = Math.floor(gemstones / 160);
-                    if(pulls < 1){
-                        alert("원석이 부족하여 최소 1 가챠를 할 수 없습니다.");
-                        return;
-                    }
+                }
+                if(pulls < 1){
+                    alert("원석이 부족하여 최소 1 가챠를 할 수 없습니다.");
+                    return;
                 }
 
                 var pulls_int = parseInt(pulls);
@@ -272,16 +286,24 @@
                 var target_weapon = parseInt($("#target_weapon").val());
 
                 // 입력 값 유효성 검사
-                if(pulls_int <= 0){
+                if(isNaN(pulls_int) || pulls_int <= 0){
                     alert("가챠 횟수는 1 이상이어야 합니다.");
                     return;
                 }
-                if(target_character <= 0){
-                    alert("목표 캐릭터 수는 1 이상이어야 합니다.");
+                if(isNaN(target_character) || isNaN(target_weapon)){
+                    alert("목표 캐릭터 수와 목표 무기 수는 숫자여야 합니다.");
+                    return;
+                }
+                if(target_character < 0){
+                    alert("목표 캐릭터 수는 0 이상이어야 합니다.");
                     return;
                 }
                 if(target_weapon < 0){
                     alert("목표 무기 수는 0 이상이어야 합니다.");
+                    return;
+                }
+                if(target_character === 0 && target_weapon === 0){
+                    alert("목표 캐릭터 수와 목표 무기 수 중 최소 하나는 1 이상이어야 합니다.");
                     return;
                 }
 
@@ -289,7 +311,7 @@
                 $("#start-per_simulation").prop("disabled", true).removeClass("btn-primary").addClass("btn-success").text("진행 중...");
 
                 $.ajax({
-                    url: "/per_simulation/simulate",
+                    url: context + "/per_simulation/simulate",
                     type: "POST",
                     data: {pulls: pulls_int, target_character: target_character, target_weapon: target_weapon},
                     success: function(response){
@@ -312,6 +334,5 @@
             });
         });
     </script>
-
 </body>
 </html>

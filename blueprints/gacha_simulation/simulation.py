@@ -57,8 +57,8 @@ def gacha_simulation(pulls_final, gacha_type):
         f"총 {pulls_done}회 사용하여 5성 한정 캐릭터/무기 {acquired_specials}개, "
         f"비한정 캐릭터/무기 {acquired_non_specials}개 획득!\n"
         f"총 5성 획득 횟수: {total_5_stars} (기대값: {mean_value:.2f}, 표준편차: {std_dev:.2f})\n"
-        f"확정 + 비확정 획득 횟수 기준으로 평가: {evaluate_luck(total_5_stars, mean_value, std_dev)}\n"
-        f"한정 캐릭터/무기 획득 횟수 기준으로 평가: {evaluate_luck(acquired_specials, mean_value, std_dev, special_rate)}\n"
+        # f"확정 + 비확정 획득 횟수 기준으로 평가: {evaluate_luck(total_5_stars, mean_value, std_dev)}\n"
+        # f"한정 캐릭터/무기 획득 횟수 기준으로 평가: {evaluate_luck(acquired_specials, mean_value, std_dev, special_rate)}\n"
     )
 
     # 결과 반환 (상위 통계 및 상세 내역)
