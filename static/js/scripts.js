@@ -63,22 +63,6 @@ $(document).ready(function () {
             alert("가챠 횟수는 1 이상이어야 합니다.");
             return;
         }
-        if (isNaN(target_character) || isNaN(target_weapon)) {
-            alert("목표 캐릭터 수와 목표 무기 수는 숫자여야 합니다.");
-            return;
-        }
-        if (target_character < 0) {
-            alert("목표 캐릭터 수는 0 이상이어야 합니다.");
-            return;
-        }
-        if (target_weapon < 0) {
-            alert("목표 무기 수는 0 이상이어야 합니다.");
-            return;
-        }
-        if (target_character === 0 && target_weapon === 0) {
-            alert("목표 캐릭터 수와 목표 무기 수 중 최소 하나는 1 이상이어야 합니다.");
-            return;
-        }
 
         // 버튼 클릭 시 스타일링 효과 추가
         $("#start-gacha").prop("disabled", true).removeClass("btn-primary").addClass("btn-success").text("진행 중...");
