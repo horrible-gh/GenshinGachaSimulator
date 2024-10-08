@@ -1,14 +1,9 @@
+# blueprints/gacha_per_simulation/simulation.py
 import random
 
-# 설정 가능한 전역 변수들
-target_character = 1  # 목표 캐릭터 수
-target_weapon = 0     # 목표 무기 수
-gemstone = 16000  # 사용할 원석 수
 
 # 가챠 시뮬레이션 함수
-
-
-def simulate_gacha(pulls, target_character=target_character, target_weapon=target_weapon):
+def simulate_gacha(pulls, target_character, target_weapon):
     pity = 0
     weapon_pity = 0
     guaranteed_character = False  # 캐릭터 한정 확정 여부
@@ -46,23 +41,11 @@ def simulate_gacha(pulls, target_character=target_character, target_weapon=targe
 
     return False
 
+
 # 확률 계산 함수
-
-
-def estimate_probability(trials, pulls):
+def estimate_probability(trials, pulls, target_character, target_weapon):
     success = 0
     for _ in range(trials):
-        if simulate_gacha(pulls):
+        if simulate_gacha(pulls, target_character, target_weapon):
             success += 1
     return success / trials
-
-
-# 원석 38,000개로 가능한 가챠 횟수
-pulls_available = gemstone // 160
-
-# 시뮬레이션 횟수
-trials = 10000
-
-# 두 캐릭터와 무기를 뽑을 확률 계산
-probability = estimate_probability(trials, pulls_available)
-print(f"{gemstone}개 원석으로 {target_character} 캐릭터 + 무기 {target_weapon}개 를 뽑을 확률: {probability * 100:.2f}%")
